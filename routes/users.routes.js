@@ -16,7 +16,7 @@ router.post('/shorten', async (req, res) => {
         // Save to MongoDB
         await UrlModel.create({ originalUrl: url, shortUrl });
       
-        res.json({ url: `http://localhost:3080/${shortUrl}` });
+        res.json({ url: `https://shorten-url-backend-sigma.vercel.app/${shortUrl}` });
     }catch (e){
         console.log(e);
         res.send({data:null})
