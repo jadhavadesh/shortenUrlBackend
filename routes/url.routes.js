@@ -9,7 +9,8 @@ router.route('/:urlId').get(async(req,res)=>{
     let existingUrl = await UrlModel.findOne({shortUrl:urlId});
     if(existingUrl){
         res.redirect(existingUrl.originalUrl);
+    }else{
+        res.send({message:'Input code is invalid'})
     }
-    res.send({message:'Input code is invalid'})
 });
 module.exports = router;
