@@ -16,7 +16,7 @@ router.post('/shorten', async (req, res) => {
         // Save to MongoDB
         await UrlModel.create({ originalUrl: url, shortUrl });
         // https://shorten-url-backend-sigma.vercel.app
-        res.status(200).json({ url: `${process.env.PROD_URL}/${shortUrl}` });
+        res.status(200).json({ url: `${process.env.SERVER_URL}/${shortUrl}` });
     } catch (e) {
         console.log(e);
         res.send({ data: null })
@@ -59,7 +59,7 @@ router.post('/update-short-url', async (req, res) => {
         if(!updatedShortUrl) {
             res.status(404).json({message: "shortUrl not found"})
         }
-        return res.status(200).json({ url: `${process.env.PROD_URL}/${editedShortcode}` })
+        return res.status(200).json({ url: `${process.env.SERVER_URL}/${editedShortcode}` })
     }
     catch(error) {
         console.error('Error updating shortUrl:', error);
