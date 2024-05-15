@@ -8,7 +8,7 @@ var cors = require('cors')
 const ResponseCodes = require("./utils/response.code");
 
 var corsOptions = {
-  origin: '*'
+  origin: 'https://shorten-url-server.vercel.app/'
 }
 
 const app = express();
