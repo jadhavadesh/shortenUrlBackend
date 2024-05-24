@@ -8,7 +8,7 @@ var cors = require('cors')
 const ResponseCodes = require("./utils/response.code");
 
 var corsOptions = {
-  origin: process.env.PROD_URL
+  origin: "*"
 }
 
 const app = express();
