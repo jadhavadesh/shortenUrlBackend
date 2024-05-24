@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const shortid = require('shortid');
 const UrlModel = require('../models/url.model');
+const QRCode = require('qrcode');
+
 // const userController = require('../controllers/users.controller');
 
 // router.route('/').get(userController.getUsers);
@@ -12,11 +14,13 @@ router.post('/shorten', async (req, res) => {
         const { url } = req.body;
         const shortCode = shortid.generate();
         const shortUrl = `${shortCode}`;
+        const qrCodeDataURL = await QRCode.toDataURL(`${process.env.SERVER_URL}/${shortUrl}`);
+
 
         // Save to MongoDB
-        await UrlModel.create({ originalUrl: url, shortUrl });
+        await UrlModel.create({ originalUrl: url, shortUrl, qrUrl: qrCodeDataURL });
         // https://shorten-url-backend-sigma.vercel.app
-        res.status(200).json({ url: `${process.env.SERVER_URL}/${shortUrl}` });
+        res.status(200).json({ url: `${process.env.SERVER_URL}/${shortUrl}`, qrUrl: qrCodeDataURL });
     } catch (e) {
         console.log(e);
         res.send({ data: null })
